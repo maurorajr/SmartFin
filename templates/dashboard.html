@@ -1,0 +1,66 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center">Dashboard - Resumo Financeiro</h2>
+    <hr>
+    <div class="row">
+        <!-- Saldo Atual -->
+        <div class="col-md-4">
+            <div class="card text-white bg-success mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Saldo Atual</h5>
+                    <p class="card-text">R$ {{ saldo_atual }}</p>
+                </div>
+            </div>
+        </div>
+        <!-- Total Receitas -->
+        <div class="col-md-4">
+            <div class="card text-white bg-primary mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Total Receitas</h5>
+                    <p class="card-text">R$ {{ total_receitas }}</p>
+                </div>
+            </div>
+        </div>
+        <!-- Total Despesas -->
+        <div class="col-md-4">
+            <div class="card text-white bg-danger mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Total Despesas</h5>
+                    <p class="card-text">R$ {{ total_despesas }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h3 class="mt-4">Últimas Transações</h3>
+    <table class="table table-striped mt-3">
+        <thead>
+            <tr>
+                <th>Data</th>
+                <th>Tipo</th>
+                <th>Categoria</th>
+                <th>Descrição</th>
+                <th>Valor</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for transaction in transactions %}
+            <tr>
+                <td>{{ transaction.date }}</td>
+                <td>{{ transaction.type }}</td>
+                <td>{{ transaction.category }}</td>
+                <td>{{ transaction.description }}</td>
+                <td>R$ {{ transaction.value }}</td>
+                <td>
+                    <a href="{{ url_for('edit_transaction', id=transaction.id) }}" class="btn btn-sm btn-warning">Editar</a>
+                    <a href="{{ url_for('delete_transaction', id=transaction.id) }}" class="btn btn-sm btn-danger">Excluir</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ url_for('add_transaction') }}" class="btn btn-primary">Nova Transação</a>
+</div>
+{% endblock %}

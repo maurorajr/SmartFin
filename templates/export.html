@@ -1,0 +1,9 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center">Exportar Dados</h2>
+    <hr>
+    <a href="{{ url_for('export_csv') }}" class="btn btn-success">Exportar Transações para CSV</a>
+</div>
+{% endblock %}
